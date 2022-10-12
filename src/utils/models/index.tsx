@@ -3,14 +3,12 @@ import { CommentMVC } from "types"
 
 //** comments mvc */
 export const useCommentsMVC: CommentMVC = {
-    filters: {
-        name: "",
-    },
     colDefs: [
         {
             headerName: "ID",
             field: "id",
-            sortable: true
+            sortable: true,
+            filterable: true
         },
         {
             headerName: "Name",

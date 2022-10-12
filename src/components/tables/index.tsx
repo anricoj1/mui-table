@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 
 // utils
 import { useTable } from 'utils/hooks';
+import { TableContext } from 'utils/context';
 
 // types
 import { TableProps } from 'types';
@@ -11,50 +12,54 @@ import { TableProps } from 'types';
 import { Table, TableBody, TableContainer, TablePagination } from '@material-ui/core';
 
 // components
-import { TableColunms } from './TableColumns';
-import { TableRowHandler } from './TableRowHandler';
+import { TableColunms } from './columns';
+import { TableRows } from './rows';
 
 
 export const TableComponent = ({
     classes,
     colDefs,
-    rowData,
-    size,
+    response,
+    errorMessage,
     paginated = true,
 }: TableProps) => {
+    // reassign data to null if unknown
+    const responseData: any = response.data ? response.data : null;
+
     // use table hook
-    const { 
-        handleChangePage, 
-        handleChangeRowsPerPage, 
-        page, 
-        pagnatedRows 
-    } = useTable(rowData);
+    const tableHook = useTable({
+        rows: responseData
+    });
 
     return (
         <Fragment>
-            <TableContainer className={classes.tableContainer}>
-                <Table stickyHeader>
-                    <TableColunms
-                        classes={classes}
-                        colDefs={colDefs}
-                    />
-                    <TableBody>
-                        <TableRowHandler
-                            rows={paginated ? pagnatedRows : rowData}
+            <TableContext.Provider value={{ data: responseData }}>
+                <TableContainer className={classes.tableContainer}>
+                    <Table stickyHeader>
+                        <TableColunms
+                            classes={classes}
                             colDefs={colDefs}
                         />
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            {paginated && <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={size}
-                rowsPerPage={page.rowsPer}
-                page={page.number}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />}
+                        <TableBody>
+                            <TableRows
+                                rows={paginated ? tableHook.paginatedRows : responseData}
+                                colDefs={colDefs}
+                                isLoading={response.isLoading}
+                                errorMessage={errorMessage}
+                            />
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                {paginated && <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={tableHook.size}
+                    rowsPerPage={tableHook.page.rowsPer}
+                    page={tableHook.page.number}
+                    onPageChange={tableHook.handleChangePage}
+                    onRowsPerPageChange={tableHook.handleChangeRowsPerPage}
+                />}
+            </TableContext.Provider>
         </Fragment>
     )
 }

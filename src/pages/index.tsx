@@ -20,17 +20,16 @@ const CommentDashboard = ({ classes }: PageProps) => {
     const mvc = useCommentsMVC;
 
     // get comments
-    const { data, isLoading, isSuccess } = useGetComments();
+    const response = useGetComments();
 
     return (
         <div>
-            {isLoading && <div>Loading...</div>}
-            {isSuccess && <TableComponent
+            <TableComponent
                 classes={classes}
                 colDefs={mvc.colDefs}
-                rowData={data}
-                size={data.length}
-            />}
+                response={response}
+                errorMessage="No comments found"
+            />
         </div>
     )
 }

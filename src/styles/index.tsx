@@ -14,7 +14,7 @@ export const useMedia = (theme: Theme): Record<"1025", boolean> => {
 
 //** style theme layout */
 export const useStyles: Styles<Theme, {}, string> = (theme: Theme) => ({
-    tablecell: {
+    tableCell: {
         border: '1px solid black',
         boxShadow: '1px 1px 2px grey',
         background: "#f2f2f2"

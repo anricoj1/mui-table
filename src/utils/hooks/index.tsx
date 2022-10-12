@@ -1,11 +1,16 @@
 // react
-import { useState, ChangeEvent } from "react"
+import { useState, ChangeEvent, MouseEvent } from "react"
+
 // types
 import { PagnationState, TableHookValues } from "types";
 
 
 //** table hook */
-export const useTable = (rows: any[]): TableHookValues => {
+export const useTable = ({
+    rows,
+}: {
+    rows: any[]
+}): TableHookValues => {
     // state
     const [page, setPage] = useState<PagnationState>({
         number: 0,
@@ -29,15 +34,65 @@ export const useTable = (rows: any[]): TableHookValues => {
     }
 
     // page rows
-    const pagnatedRows: any[] = rows.slice(
+    const paginatedRows: any[] = rows && rows.slice(
         page.number * page.rowsPer,
         page.number * page.rowsPer + page.rowsPer
     );
 
+    // size
+    const size: number = rows ? rows.length : 0;
+
     return {
         page,
-        pagnatedRows,
+        paginatedRows,
+        size,
         handleChangePage,
         handleChangeRowsPerPage
+    }
+}
+
+//** sortable table column */
+export const useSortableColumn = (): {
+    sorted: boolean;
+    handleSortClick: () => void;
+} => {
+    // state
+    const [sorted, setSorted] = useState<boolean>(false);
+
+    // handle sort click
+    const handleSortClick = () => setSorted(!sorted);
+
+    return {
+        sorted,
+        handleSortClick
+    }
+}
+
+//** sortable table column */
+export const useFilterableColumn = (): {
+    anchorEl: HTMLElement | null;
+    open: boolean;
+    handlePopoverClose: () => void;
+    handlePopoverOpen: (event: MouseEvent<HTMLButtonElement>) => void;
+} => {
+    // anchor element for popover
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+    // open
+    const open = Boolean(anchorEl);
+
+    // handle popover close
+    const handlePopoverClose = () => setAnchorEl(null);
+
+    // handle popover open
+    const handlePopoverOpen = (event: MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    }
+
+    return {
+        anchorEl,
+        open,
+        handlePopoverClose,
+        handlePopoverOpen
     }
 }
