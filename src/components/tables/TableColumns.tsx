@@ -5,7 +5,15 @@ import { useState, Fragment } from 'react';
 import { ColumnDef } from 'types';
 
 // mui
-import { TableCell, TableRow, TableHead, IconButton, Box, Popover } from '@material-ui/core';
+import {
+    TableCell,
+    TableRow,
+    TableHead,
+    IconButton,
+    Box,
+    Popover,
+    TextField
+} from '@material-ui/core';
 import { ArrowDownward, MoreVert } from '@material-ui/icons';
 
 //** render the table columns */
@@ -59,8 +67,6 @@ export const TableColumn = ({
         setAnchorEl(event.currentTarget);
     }
 
-
-
     return (
         <Fragment>
             <TableCell
@@ -103,7 +109,19 @@ export const TableColumn = ({
                                 horizontal: 'center',
                             }}
                         >
-                            <p>The content of the Popover.</p>
+                            <div style={{
+                                display: 'flex',
+                                height: '10vh',
+                                width: '25vw',
+                            }}>
+                                <TextField
+                                    style={{
+                                        margin: 'auto'
+                                    }}
+                                    label={`${column.headerName} filter`}
+                                    variant="outlined"
+                                />
+                            </div>
                         </Popover>
                     </Box>
                 </Box>

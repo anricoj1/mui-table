@@ -1,7 +1,3 @@
-
-// context
-import { AppState } from 'utils/context';
-
 // mui styles
 import { useMedia } from 'styles';
 import { useTheme } from '@material-ui/core';
@@ -16,9 +12,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <AppState.Provider value={{ media }}>
-
-            </AppState.Provider>
+            <CommentsDashboard />
         </div>
     )
 }

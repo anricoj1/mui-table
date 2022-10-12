@@ -1,43 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- meta tags -->
+    <!-- meta tags-->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" />
 
-    <!-- icons -->
-    <link rel="shortcut icon" href="https://www.stewleonards.com/wp-content/uploads/cow.svg">
-    <link rel="apple-touch-icon" href="https://www.stewleonards.com/wp-content/uploads/cow.svg"/>
-
-    <!-- css & fonts -->
-    <link rel='dns-prefetch' href='https://fonts.googleapis.com' />
-    <link rel='stylesheet' id='wpurp_style2-css'  href='https://fonts.googleapis.com/css?family=Open+Sans' type='text/css' media='all' />
-    <link rel='stylesheet' id='boogaloo-css'  href='https://fonts.googleapis.com/css?family=Boogaloo' type='text/css' media='all' />
-
-
-    <!-- font awesome -->
-    <script src="https://kit.fontawesome.com/7bfb5157f1.js" crossorigin="anonymous"></script>
-
-    <!-- manifest -->
-    <link rel="manifest" href="/manifest.json">
-
-    <!-- title -->
-    <title>Customer Data Corral</title>
+    <!-- page title -->
+    <title>Table Component</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
-    <script type="text/javascript">
-      if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/service-worker.js').then(registration => {
-                  console.log('Service worker registered');
-              }).catch(registrationError => {
-                  console.error(`Service worker failed failed: ${registrationError}`);
-              });
-          })
-      }
-  </script>
   </body>
 </html>

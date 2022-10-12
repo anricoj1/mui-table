@@ -43,3 +43,9 @@ export type PagnationState = {
 export type AppStateProps = {
     media: Record<"1025", boolean>;
 }
+
+//** comments mvc */
+export type CommentMVC = {
+    filters: Record<string, any>;
+    colDefs: ColumnDef[];
+}
