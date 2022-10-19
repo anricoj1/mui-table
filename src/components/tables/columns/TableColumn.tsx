@@ -1,8 +1,5 @@
 // react
-import { Fragment, useContext } from 'react';
-
-// utils
-import { TableContext } from 'utils/context';
+import { Fragment } from 'react';
 
 // types
 import { TableColumnProps } from 'types';
@@ -17,9 +14,6 @@ import { FilterableColumn } from './FilterableColumn';
 
 /** render table column */
 export const TableColumn = ({ classes, column }: TableColumnProps) => {
-    // context
-    const { data } = useContext(TableContext);
-
     return (
         <Fragment>
             <TableCell
@@ -30,11 +24,11 @@ export const TableColumn = ({ classes, column }: TableColumnProps) => {
                     <Box margin="auto">
                         {column.headerName}
                     </Box>
-                    {column.sortable && <SortableColumn
+                    {column.sort && <SortableColumn
                         classes={classes}
                         column={column}
                     />}
-                    {column.filterable && <FilterableColumn
+                    {column.filter && <FilterableColumn
                         classes={classes}
                         column={column}
                     />}

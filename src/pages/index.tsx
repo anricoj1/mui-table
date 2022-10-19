@@ -2,8 +2,7 @@
 import { PageProps } from 'types';
 
 // utils
-import { useCommentsMVC } from 'utils/models';
-import { useGetComments } from 'utils/handlers';
+import { CommentsMVC } from 'utils/models';
 
 // mui
 import { withStyles } from '@material-ui/core';
@@ -16,19 +15,11 @@ import { useStyles } from 'styles';
 
 
 const CommentDashboard = ({ classes }: PageProps) => {
-    // mvc
-    const mvc = useCommentsMVC;
-
-    // get comments
-    const response = useGetComments();
-
     return (
         <div>
             <TableComponent
                 classes={classes}
-                colDefs={mvc.colDefs}
-                response={response}
-                errorMessage="No comments found"
+                {...CommentsMVC.table}
             />
         </div>
     )
